@@ -1,7 +1,7 @@
 export interface ProductModel {
-    color: string,
-    id: number,
-    name: string,
-    pantone_value: string,
-    year: number
+  id: number,
+  name: string,
+  year: number,
+  color: string,
+  pantone_value: string
 }
