@@ -1,5 +1,5 @@
 import React from 'react';
-import {ProductTable} from "../page/productTable/ProductTable";
+import {ProductTableEntry} from "../page/productTable/ProductTableEntry";
 import {QueryClient, QueryClientProvider} from "react-query";
 
 
@@ -10,7 +10,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
 
-            <ProductTable/>
+            <ProductTableEntry/>
         </QueryClientProvider>
 
     );

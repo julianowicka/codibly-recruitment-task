@@ -1,11 +1,12 @@
 import {ProductTableResponseModel} from "./model/ProductTableResponseModel";
 import {useQuery} from "react-query";
 import axios from 'axios';
+import {ProductTable} from "./component/ProductTable";
 
 
- export const ProductTable = () => {
+ export const ProductTableEntry = () => {
 
-    const { data, isError, isLoading } = useQuery(
+    const { data, isLoading  } = useQuery(
         'products',
         () => axios.get<ProductTableResponseModel>('https://reqres.in/api/products')
     )
@@ -16,8 +17,7 @@ import axios from 'axios';
 
      return(
          <>
-             {data.data.data[0].name}
-             {isError? <p>Error fetching data</p> : undefined}
+           <ProductTable products={data.data.data}/>
          </>
      )
 };
