@@ -1,19 +1,25 @@
-import React from "react";
-import axios from "axios";
+import React, {useState} from "react";
 import {useQuery} from "react-query";
-import {ProductResponseModel} from "../model/ProductResponseModel";
 import {ProductTable} from "./ProductTable";
+import {fetchProducts} from "../util/fetchProducts";
+import {TextField} from "@mui/material";
 
 
 export const ProductTableContainer: React.FC = () => {
+  const [filterId, setFilterId] = useState("");
 
-  const {data, isLoading, isError} = useQuery(
-    'products',
-    () => axios.get<ProductResponseModel>(`https://reqres.in/api/products`)
+  const {data: products, isLoading, isError} = useQuery(
+    ['products', filterId],
+    () => fetchProducts(filterId),
   )
-  console.log(data);
 
-  if(data === undefined || isLoading || isError) {
+  const handleChangeFilterId = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const newFilterValue = event.target.value;
+    console.log(newFilterValue);
+    setFilterId(newFilterValue);
+  }
+
+  if(products === undefined || isLoading || isError) {
     return(
       <>
         Spinner
@@ -23,7 +29,10 @@ export const ProductTableContainer: React.FC = () => {
 
   return (
     <>
-      <ProductTable  products={data.data.data}/>
+      <TextField label="Outlined" variant="outlined" value={filterId} onChange={handleChangeFilterId} type="number"
+      />
+
+      <ProductTable  products={products.data}/>
     </>
   );
 }

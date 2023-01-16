@@ -1,6 +1,6 @@
 import {ProductModel} from "./ProductModel";
 
-export interface ProductResponseModel {
+export interface ProductListResponseModel {
   page: number,
   per_page: number,
   total: number,
