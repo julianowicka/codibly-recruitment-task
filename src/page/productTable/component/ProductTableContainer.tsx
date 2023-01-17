@@ -19,8 +19,8 @@ export const ProductTableContainer: React.FC = () => {
     setFilterId(newFilterValue);
   }
 
-  if(products === undefined || isLoading || isError) {
-    return(
+  if (products === undefined || isLoading || isError) {
+    return (
       <>
         Spinner
       </>
@@ -29,10 +29,14 @@ export const ProductTableContainer: React.FC = () => {
 
   return (
     <>
-      <TextField label="Outlined" variant="outlined" value={filterId} onChange={handleChangeFilterId} type="number"
+      <TextField
+        label="Product id"
+        variant="outlined"
+        value={filterId}
+        onChange={handleChangeFilterId}
+        type="number"
       />
-
-      <ProductTable  products={products.data}/>
+      <ProductTable products={products.data}/>
     </>
   );
 }
