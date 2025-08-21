@@ -1,3 +1,24 @@
+## Opis (PL)
+
+Proste SPA w React + TypeScript prezentujące listę „produktów” (kolory) z publicznego API. Wiersze tabeli mają tło na podstawie pola `color`, a kliknięcie w wiersz otwiera modal ze szczegółami. Filtrowanie po `id`. Dla spójności z API pojedynczy zasób (`/:id`) jest opakowany do listy.
+
+Ponieważ domyślne API: https://reqres.in/api/products (pola: `id`, `name`, `year`, `color`, `pantone_value`), przestało działać, utworzyłam mock API oparte na express zgodne z endpointem z ReqRes.
+
+Jak uruchomić
+  npm run mock-api + npm start
+
+- Wymagany Node 16+ (zalecane LTS)
+- Instalacja: npm install
+- Start (dev): npm start
+- Build: npm run build
+- Mock Api: npm run mock-api
+- Testy: npm test
+
+Obsługa błędów i UX
+- Pole filtra akceptuje tylko cyfry (znaki inne niż cyfry są automatycznie odrzucane).
+- Widok pokazuje stany ładowania oraz błąd przy problemach z API.
+
+---
 
 ## Task description:
 
@@ -16,7 +37,7 @@ Please reflect pagination and filtering in the address URL, so users can copy an
 
 ### API endpoint
 
-- https://reqres.in/api/products
+- https://reqres.in/api/unknown
 
 ### Requirements
 
