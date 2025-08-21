@@ -1,22 +1,38 @@
 ## Opis (PL)
 
-Proste SPA w React + TypeScript prezentujące listę „produktów” (kolory) z publicznego API. Wiersze tabeli mają tło na podstawie pola `color`, a kliknięcie w wiersz otwiera modal ze szczegółami. Filtrowanie po `id`. Dla spójności z API pojedynczy zasób (`/:id`) jest opakowany do listy.
+Proste SPA w React + TypeScript prezentujące listę „produktów" (kolory) z publicznego API. Wiersze tabeli mają tło na podstawie pola `color`, a kliknięcie w wiersz otwiera modal ze szczegółami. Filtrowanie po `id` oraz paginacja (5 elementów na stronę).
 
-Ponieważ domyślne API: https://reqres.in/api/products (pola: `id`, `name`, `year`, `color`, `pantone_value`), przestało działać, utworzyłam mock API oparte na express zgodne z endpointem z ReqRes.
+Domyślne API: https://reqres.in/api/products (pola: `id`, `name`, `year`, `color`, `pantone_value`).
 
-Jak uruchomić
-  npm run mock-api + npm start
+### Jak uruchomić
 
+Szybki start z lokalnym mock API:
+```bash
+npm install
+npm run dev  -  Uruchamia mock API + aplikację równolegle
+```
+
+Alternatywnie krok po kroku:
 - Wymagany Node 16+ (zalecane LTS)
-- Instalacja: npm install
-- Start (dev): npm start
-- Build: npm run build
-- Mock Api: npm run mock-api
-- Testy: npm test
+- Instalacja: `npm install`
+- Opcje uruchomienia:
+  - `npm start` - start apki
+  - `npm run mock-api` lub `npm run start:mock` - Mock API
+- Build: `npm run build`
+- Testy: `npm test`
 
-Obsługa błędów i UX
-- Pole filtra akceptuje tylko cyfry (znaki inne niż cyfry są automatycznie odrzucane).
-- Widok pokazuje stany ładowania oraz błąd przy problemach z API.
+### Funkcjonalności
+
+- **Filtrowanie po ID**: Pole akceptuje tylko cyfry, resetuje paginację
+- **Paginacja**: Previous/Next dla list (5 elementów/strona), ukryta przy filtrowaniu
+- **Modal szczegółów**: Kliknięcie w wiersz tabeli
+- **Obsługa błędów**: Wyświetla status i URL przy problemach z API
+
+### Rozwój i testowanie
+
+- `npm run lint` - sprawdź kod (ESLint)  
+- `npm run format` - formatowanie (Prettier)
+- `npm test` - uruchom testy jednostkowe
 
 ---
 
