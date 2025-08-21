@@ -13,11 +13,13 @@ const getBaseUrl = (): string => {
 
 const BASE_URL = getBaseUrl();
 
-export const fetchProducts = async (id: string): Promise<ProductListResponseModel> => {
+export const fetchProducts = async (id: string, page = 1): Promise<ProductListResponseModel> => {
   const trimmed = id.trim();
 
   if (trimmed === '') {
-    const response = await axios.get<ProductListResponseModel>(`${BASE_URL}`);
+    const response = await axios.get<ProductListResponseModel>(`${BASE_URL}`, {
+      params: { page, per_page: 5 }
+    });
     return response.data;
   }
 

@@ -2,23 +2,35 @@ import React, {useState} from "react";
 import {useQuery} from "react-query";
 import {ProductTable} from "./ProductTable";
 import {fetchProducts} from "../util/fetchProducts";
-import {TextField, Alert, CircularProgress, Box} from "@mui/material";
+import {TextField, Alert, CircularProgress, Box, Button, Typography} from "@mui/material";
 import axios from "axios";
 
 export const ProductTableContainer: React.FC = () => {
   const [filterId, setFilterId] = useState("");
+  const [page, setPage] = useState(1);
 
   const {data: products, isLoading, isError, error} = useQuery(
-    ['products', filterId],
-    () => fetchProducts(filterId),
-    { retry: 0 }
+    ['products', filterId, page],
+    () => fetchProducts(filterId, page),
+    { retry: 0, keepPreviousData: true }
   );
 
   const handleChangeFilterId = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const raw = event.target.value;
     const digitsOnly = raw.replace(/\D/g, '');
     setFilterId(digitsOnly);
+    setPage(1); // Reset to first page when filtering
   }
+
+  const handlePrevPage = () => {
+    setPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    if (products && page < products.total_pages) {
+      setPage(prev => prev + 1);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -60,8 +72,10 @@ export const ProductTableContainer: React.FC = () => {
 
   if (!products) return null;
 
+  const showPagination = !filterId && products.total_pages > 1;
+
   return (
-    <>
+    <Box>
       <TextField
         label="Product id"
         variant="outlined"
@@ -70,7 +84,30 @@ export const ProductTableContainer: React.FC = () => {
         type="text"
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
       />
-      <ProductTable products={products.data}/>
-    </>
+      <Box mt={2}>
+        <ProductTable products={products.data}/>
+      </Box>
+      {showPagination && (
+        <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+          <Button 
+            onClick={handlePrevPage} 
+            disabled={page === 1}
+            variant="outlined"
+          >
+            Previous
+          </Button>
+          <Typography>
+            Page {page} of {products.total_pages}
+          </Typography>
+          <Button 
+            onClick={handleNextPage} 
+            disabled={page >= products.total_pages}
+            variant="outlined"
+          >
+            Next
+          </Button>
+        </Box>
+      )}
+    </Box>
   );
 }
